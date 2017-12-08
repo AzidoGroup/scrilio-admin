@@ -1,0 +1,9 @@
+{
+  "extends": "eslint-config-azido",
+  "ecmaFeatures": {
+      "modules": true
+  },
+  "parserOptions": {
+      "sourceType": "module"
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "api": {
+        "host": "http://localhost",
+        "port": 8091,
+        "auth": {
+            "username": "foo",
+            "password": "bar"
+        }
+    },
+    "application": {
+        "port": 8090,
+    },
+    "client": {
+        "path": "../client/build"
+    }
+}

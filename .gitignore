@@ -57,3 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# Client build directory
+client/build/*
+
+# Configurations
+server/config/config.json
