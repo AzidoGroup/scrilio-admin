@@ -16,7 +16,7 @@ You will need to install `mysql 5.6` or greater. See [mysql installer](https://d
 
 ### Create the database
 
-You will need to initially create the `scrilio` database prior to running any database scripts:
+You will need to initially create the `scrilio-admin` database prior to running any database scripts:
 
 ```bash
 mysql -uroot
@@ -37,5 +37,5 @@ npm run dev
 ```
 
 ## create the admin user
-* go to `http://localhost:3000/admin/setup`
+* go to `http://localhost:8090/setup`
 * follow the instructions... TBD
