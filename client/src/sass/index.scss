@@ -1,8 +1,8 @@
-$green: green;
-$purple: purple;
-$red: red;
+@import './_global';
+
 h1 {
     color: $green;
+    border: 1px;
 }
 
 h2 {

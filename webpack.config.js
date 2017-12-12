@@ -19,25 +19,12 @@ module.exports = {
 				exclude: /(node_modules)/,
 				loader: 'vue-loader',
 				options: {
+					// load up optional loads
 					loaders: {
-						sass: ExtractTextPlugin.extract({
-							fallback: 'style-loader',
-							use: [
-								// 'vue-style-loader',
-								'css-loader',
-								'sass-loader?indentedSyntax=1'
-								// {
-								// 	loader: 'sass-resources-loader',
-								// 	options: {
-								// 		resources: path.resolve(__dirname, 'client/src/sass/_global.scss')
-								// 	}
-								// }
-							]
-						}),
+						// Sass (scss) Loader
 						scss: ExtractTextPlugin.extract({
 							fallback: 'style-loader',
 							use: [
-								// 'vue-style-loader',
 								'css-loader',
 								'sass-loader',
 								{
@@ -49,57 +36,7 @@ module.exports = {
 							]
 						})
 					}
-					// loaders: {
-					// 	sass: [
-					// 		'vue-style-loader',
-					// 		'css-loader',
-					// 		'sass-loader?indentedSyntax=1',
-					// 		{
-					// 			loader: 'sass-resources-loader',
-					// 			options: {
-					// 				resources: path.resolve(__dirname, 'client/src/sass/_global.scss')
-					// 			}
-					// 		}
-					// 	],
-					// 	scss: [
-					// 		'vue-style-loader',
-					// 		'css-loader',
-					// 		'sass-loader',
-					// 		{
-					// 			loader: 'sass-resources-loader',
-					// 			options: {
-					// 				resources: path.resolve(__dirname, 'client/src/sass/_global.scss')
-					// 			}
-					// 		}
-					// 	]
-					// 	// scss: ExtractTextPlugin.extract({
-					// 	// 	fallback: 'style-loader',
-					// 	// 	use: [
-					// 	// 		'css-loader',
-					// 	// 		{
-					// 	// 			loader: 'sass-loader',
-					// 	// 			options: {
-					// 	// 				data: '@import "_global";',
-					// 	// 				includePaths: [
-					// 	// 					path.resolve(ROOT, 'client/src/sass')
-					// 	// 				]
-					// 	// 			}
-					// 	// 		}
-					// 	// 	]
-					// 	// })
-					// }
 				}
-				// options: {
-				// 	loader: ExtractTextPlugin.extract({
-				// 		fallback: 'style-loader',
-				// 		use: [
-				// 			'css-loader',
-				// 			'sass-loader',
-				// 			{
-				// 			}
-				// 		]
-				// 	})
-				// }
 			},
 			{
 				test: /\.js$/,
@@ -113,17 +50,6 @@ module.exports = {
 					use: [ 'css-loader', 'sass-loader']
 				})
 			}
-			// {
-			// 	test: /\.scss$/,
-			// 	use: [
-			// 		'css-loader',
-			// 		'sass-loader',
-			// 		ExtractTextPlugin.extract({
-			// 			fallback: 'style-loader',
-			// 			use: ['css-loader', 'sass-loader']
-			// 		})
-			// 	]
-			// }
 		]
 	},
 	plugins: [
