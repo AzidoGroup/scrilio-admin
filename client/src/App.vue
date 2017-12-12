@@ -8,6 +8,9 @@
 
 </script>
 
-<style>
+<style lang="scss" scoped>
 
+h2 {
+    color: $red;
+}
 </style>

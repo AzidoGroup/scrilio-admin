@@ -1,5 +1,5 @@
+require('./sass/_global.scss');
 
-import './sass/index.sass';
 import Vue from 'vue';
 // import VueResource from 'vue-resource';
 // import VueRouter from 'vue-router';
@@ -15,5 +15,5 @@ import App from './App.vue';
 
 new Vue({
 	el: '#app',
-	render: h => h(App)
+	render: cnxt => cnxt(App)
 });
