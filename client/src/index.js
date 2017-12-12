@@ -1,4 +1,4 @@
-require('./sass/_global.scss');
+// require('./sass/_global.scss');
 require('./sass/index.scss');
 
 import Vue from 'vue';
