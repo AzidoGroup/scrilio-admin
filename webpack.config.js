@@ -13,14 +13,16 @@ const sassLoader = ExtractTextPlugin.extract({
 		{
 			loader: 'sass-resources-loader',
 			options: {
-				resources: path.resolve(__dirname, 'client/src/sass/_variables.scss')
+				resources: [path.resolve(__dirname, 'client/src/sass/_variables.scss')]
 			}
 		}
 	]
 });
 
 module.exports = {
-	entry: ['./client/src/index.js'],
+	entry: {
+		main: './client/src/index.js'
+	},
 	output: {
 		filename: 'bundle.js',
 		publicPath: 'client/build/',
@@ -33,7 +35,7 @@ module.exports = {
 				exclude: /(node_modules)/,
 				loader: 'vue-loader',
 				options: {
-					// load up optional loads
+					// load up optional loaders
 					loaders: {
 						// Sass (scss) Loader
 						scss: sassLoader
