@@ -2,18 +2,18 @@
 require('./sass/global.scss');
 
 import Vue from 'vue';
-// import VueResource from 'vue-resource';
+import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
+import Vuex from 'vuex';
 import App from './App.vue';
 
-import routes from './router.js';
+import router from './router.js';
+import Store from './store.js';
 
-// Vue.use(VueResource);
+Vue.use(VueResource);
 Vue.use(VueRouter);
-
-const router = new VueRouter({
-	routes
-});
+Vue.use(Vuex);
+Vue.use(Store);
 
 new Vue({
 	el: '#app',
