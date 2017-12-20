@@ -1,16 +1,31 @@
 {
-    "api": {
-        "host": "http://localhost",
-        "port": 8091,
-        "auth": {
-            "username": "foo",
-            "password": "bar"
-        }
-    },
-    "application": {
-        "port": 8090,
-    },
-    "client": {
-        "path": "../client/build"
-    }
+	"api": {
+		"host": "http://localhost",
+		"port": 8091,
+		"auth": {
+			"username": "foo",
+			"password": "bar"
+		}
+	},
+	"application": {
+		"port": 8090,
+	},
+	"client": {
+		"path": "../client/build"
+	},
+	"database": {
+		"knex": {
+			"client": "mysql2",
+			"connection": {
+				"host": "127.0.0.1",
+				"user": "root",
+				"database": "scrilio",
+				"port": 3306
+			},
+			"prefix": "scrl_core_",
+			"migrations": {
+				"tableName": "migrations"
+			}
+		}
+	}
 }

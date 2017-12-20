@@ -54,9 +54,8 @@ server.post('/api/auth/check', (req, res) => {
 
 	return res.json(body);
 });
-server.get('/check-auth', (req, res) => {
-	return res.json({success: true, message: 'check auth'});
-});
+
+server.use('/', require('./routes/index')(express.Router()));
 
 server.listen(config.application.port, () => {
 	console.log(`Scrilio Admin Server listening on port: ${config.application.port}`);

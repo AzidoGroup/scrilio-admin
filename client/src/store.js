@@ -27,6 +27,7 @@ const mutations = {
 
 const actions = {
 	login({ commit }, credentials) {
+		// @TODO move this into a service like thing
 		return Vue.http.post('http://localhost:8090/api/auth', credentials)
 			.then(response => {
 				let body = response.body;
@@ -44,6 +45,7 @@ const actions = {
 		if (!token) {
 			return false;
 		}
+		// @TODO move this into a service like thing
 		return Vue.http.post('http://localhost:8090/api/auth/check', {token})
 			.then(response => {
 				let body = response.body;
