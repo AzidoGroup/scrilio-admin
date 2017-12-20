@@ -10,10 +10,8 @@ import router from '../../router';
 export default {
 	name: 'logout',
 	mounted: function () {
-		localStorage.removeItem('token')
-		this.$store.commit('LOGOUT_USER');
+		this.$store.dispatch('logout');
 		this.$router.push('/log-in');
-		// router.redirect('/log-in');
 	}
 };
 

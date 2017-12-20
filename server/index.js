@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const server = express();
+const hash = require('object-hash');
 
 let list = [ 'zero', 'one', 'two', 'three', 'four', 'five' ];
 let json = list.map((i, indx) => {
@@ -30,18 +31,31 @@ server.get('/', (req, res) => {
 	return res.json({message: 'server'});
 });
 
-server.post('/user', (req, res) => {
+server.post('/api/auth', (req, res) => {
 	let body = {
 		username: req.body.username,
 		password: req.body.password,
-		token: `${Math.random()}-${req.body.username}`
+		token: hash.sha1({
+			num: Math.random(),
+			username: req.body.username,
+			password: req.body.password
+		}),
+		success: true
 	};
 
 	return res.json(body);
 });
 
-server.get('/list/:id', (req, res) => {
-	return res.json(json[req.params.id]);
+server.post('/api/auth/check', (req, res) => {
+	let body = {
+		token: req.body.token,
+		success: true
+	};
+
+	return res.json(body);
+});
+server.get('/check-auth', (req, res) => {
+	return res.json({success: true, message: 'check auth'});
 });
 
 server.listen(config.application.port, () => {

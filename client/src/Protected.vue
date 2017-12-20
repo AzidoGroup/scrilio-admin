@@ -13,12 +13,6 @@ export default {
 		return {
 			message: 'Some silly message'
 		};
-	},
-	beforeCreate() {
-		this.$http.get('http://localhost:8090/user')
-			.then(result => {
-				console.log(result.body);
-			})
 	}
 };
 </script>

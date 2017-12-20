@@ -32,16 +32,9 @@ const routes = [
 		name: 'protected',
 		component: Protected,
 		meta: {
-			requiresAuth: true
+			auth: true
 		}
 	}
-	// {
-	// 	path: '/list/:id',
-	// 	component: Item,
-	// 	props: {
-	// 		id: true
-	// 	}
-	// }
 ];
 
 const router = new VueRouter({
@@ -50,11 +43,18 @@ const router = new VueRouter({
 
 router.beforeEach(function (to, from, next) {
 	let auth = to.matched.some(record => {
-		return record.meta.requiresAuth;
+		return record.meta.auth;
 	});
 
-	if (auth && Store.store.state.isLogged === false) {
-		return router.push('/log-in');
+	if (auth) {
+		return Store.store.dispatch('checkStatus', Store.store.getters.token)
+			.then(res => {
+				if (res) {
+					return next();
+				}
+				Store.store.dispatch('logout');
+				return router.push('/log-in');
+			});
 	}
 
 	return next();

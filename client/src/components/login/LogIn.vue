@@ -36,12 +36,10 @@ export default {
 				password: this.password
 			};
 
-			this.$http.post('http://localhost:8090/user', body)
-				.then(function (result) {
-					localStorage.setItem('token_key', result.body.token);
-					this.$store.commit('LOGIN_USER');
-					console.log(result.body);
-				})
+			this.$store.dispatch('login', body)
+				.then(() => {
+					this.$router.push('/protected');
+				});
 		}
 	}
 };
