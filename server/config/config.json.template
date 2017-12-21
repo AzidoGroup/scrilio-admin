@@ -19,11 +19,12 @@
 			"connection": {
 				"host": "127.0.0.1",
 				"user": "root",
-				"database": "scrilio",
+				"database": "scrilio_admin",
 				"port": 3306
 			},
-			"prefix": "scrl_core_",
+			"prefix": "scrl_admn_",
 			"migrations": {
+        "directory": "./server/migrations",
 				"tableName": "migrations"
 			}
 		}
