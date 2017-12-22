@@ -4,6 +4,8 @@ const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const sessionConfig = require('./lib/sessions')(config.database.knex);
 const server = express();
 const hash = require('object-hash');
 
@@ -19,41 +21,9 @@ server.use(express.static(path.join(__dirname, config.client.path)));
 
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
-
+server.use(session(sessionConfig));
 // load up the CORS settings
 server.use(cors());
-server.all('*', (req, res, next) => {
-	console.log(req.method, req.url);
-	return next();
-});
-
-server.get('/', (req, res) => {
-	return res.json({message: 'server'});
-});
-
-server.post('/api/auth', (req, res) => {
-	let body = {
-		username: req.body.username,
-		password: req.body.password,
-		token: hash.sha1({
-			num: Math.random(),
-			username: req.body.username,
-			password: req.body.password
-		}),
-		success: true
-	};
-
-	return res.json(body);
-});
-
-server.post('/api/auth/check', (req, res) => {
-	let body = {
-		token: req.body.token,
-		success: true
-	};
-
-	return res.json(body);
-});
 
 server.use('/', require('./routes/index')(express.Router()));
 

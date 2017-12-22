@@ -4,7 +4,7 @@ const config = require('../../../config');
 const Admin = new (require('../../../lib/admin'))(config.database.knex);
 const adminRouteHelper = require('../../../lib/middleware/admin-router-middleware');
 
-const ADMIN_URI = '/admin';
+const ADMIN_URI = '/api/v1/auth';
 
 module.exports = (router) => {
 
@@ -49,8 +49,8 @@ module.exports = (router) => {
 	 */
 	function processSetup(request, response) {
 		let raw = {
-			username: request.body.admin_username,
-			password: request.body.admin_password
+			username: request.body.username,
+			password: request.body.password
 		};
 
 		return Admin.insertAdminUser(raw)
@@ -71,20 +71,6 @@ module.exports = (router) => {
 	 * @return {void}
 	 */
 	function authenticate(request, response) {
-		// test for a GET request and handle accordingly
-		if (request.method === 'GET') {
-			// if (is.existy(request.session.user) && is.not.empty(request.session.user)) {
-			// 	return response.redirect('/admin');
-			// }
-			// console.log('here');
-			return response.render('./admin/templates/login', {
-				data: {
-					username: 'user1',
-					food: 'pizza'
-				}
-			});
-		}
-
 		//
 		let raw = {
 			username: request.body.username,
@@ -95,12 +81,12 @@ module.exports = (router) => {
 				console.log(res);
 				if (res.match) {
 					request.session.user = res;
-					return response.redirect('/admin');
+					return response.json(res);
 				}
 				throw new Error('username and/or password does not match');
 			})
 			.catch(err => {
-				return response.status(404).render('./admin/templates/login', {
+				return response.status(404).json({
 					username: raw.username,
 					error: {
 						message: err.message
@@ -133,12 +119,28 @@ module.exports = (router) => {
 		return response.json({message: 'yay!'});
 	}
 
+	function check(request, response) {
+		let token = request.body.token;
+		let username = request.session.user.username;
+
+		Admin.validateToken(username, token)
+			.then(res => {
+				if (res === true) {
+					return response.json({match: true});
+				}
+				return response.json({match: false});
+			})
+			.catch(err => {
+				console.error(err);
+				return response.status(500).json({error: err.message});
+			});
+	}
+
 	router.get(ADMIN_URI, adminRouteHelper.verifyAccessToken, index);
-	router.get(`${ADMIN_URI}/login`, authenticate);
-	router.post(`${ADMIN_URI}/login`, authenticate);
+	router.post(`${ADMIN_URI}`, authenticate);
+	router.post(`${ADMIN_URI}/check`, check);
 	router.get(`${ADMIN_URI}/logout`, logout);
 	router.get(`${ADMIN_URI}/other`, adminRouteHelper.verifyAccessToken, other);
-	router.get(`${ADMIN_URI}/setup`, initializeSetup);
 	router.post(`${ADMIN_URI}/setup`, processSetup);
 
 	return router;

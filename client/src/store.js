@@ -28,10 +28,10 @@ const mutations = {
 const actions = {
 	login({ commit }, credentials) {
 		// @TODO move this into a service like thing
-		return Vue.http.post('http://localhost:8090/api/auth', credentials)
+		return Vue.http.post('http://localhost:8090/api/v1/auth', credentials)
 			.then(response => {
 				let body = response.body;
-				if (body.success === true) {
+				if (body.match === true) {
 					localStorage.setItem(TOKEN_NAME, body.token);
 					return commit(MUTATIONS.LOGIN_USER, body.token);
 				}
@@ -46,10 +46,10 @@ const actions = {
 			return false;
 		}
 		// @TODO move this into a service like thing
-		return Vue.http.post('http://localhost:8090/api/auth/check', {token})
+		return Vue.http.post('http://localhost:8090/api/v1/auth/check', {token})
 			.then(response => {
 				let body = response.body;
-				if (body.success === true) {
+				if (body.match === true) {
 					return true;
 				}
 				commit(MUTATIONS.LOGOUT_USER);

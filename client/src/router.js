@@ -3,11 +3,17 @@ import VueRouter from 'vue-router';
 import LogIn from './components/login/LogIn.vue';
 import LogOut from './components/login/LogOut.vue';
 import Main from './components/main/Main.vue';
+import Setup from './components/setup/Setup.vue';
 import Protected from './Protected.vue';
 
 import Store from './store.js';
 
 const routes = [
+	{
+		path: '/setup',
+		name: 'setup',
+		component: Setup
+	},
 	{
 		path: '/log-in',
 		name: 'logIn',
