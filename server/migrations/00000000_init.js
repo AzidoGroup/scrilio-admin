@@ -1,6 +1,6 @@
+'use strict';
 
 const config = require('../config').database.knex;
-const siteHelper = require('../lib/helpers/sites-helper');
 
 exports.up = knex => {
 	return knex.schema

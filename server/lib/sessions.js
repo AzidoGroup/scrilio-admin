@@ -1,3 +1,4 @@
+'use strict';
 
 const is = require('is_js');
 const session = require('express-session');

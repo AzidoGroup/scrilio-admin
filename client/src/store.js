@@ -60,8 +60,11 @@ const actions = {
 			});
 	},
 	logout({commit}) {
-		localStorage.removeItem(TOKEN_NAME);
-		commit(MUTATIONS.LOGOUT_USER);
+		return Vue.http.get('http://localhost:8090/api/v1/auth/logout')
+			.then(response => {
+				localStorage.removeItem(TOKEN_NAME);
+				commit(MUTATIONS.LOGOUT_USER);
+			});
 	}
 };
 

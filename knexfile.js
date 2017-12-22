@@ -1,3 +1,4 @@
+'use strict';
 
 let config = require('./server/config').database.knex;
 // Update with your config settings.

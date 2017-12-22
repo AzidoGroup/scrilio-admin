@@ -1,43 +1,11 @@
+'use strict';
 
-const is = require('is_js');
 const config = require('../../../config');
 const Admin = new (require('../../../lib/admin'))(config.database.knex);
-const adminRouteHelper = require('../../../lib/middleware/admin-router-middleware');
 
 const ADMIN_URI = '/api/v1/auth';
 
 module.exports = (router) => {
-
-	/**
-	 * [index description]
-	 *
-	 * @param  {Object}   request  Express Request object
-	 * @param  {Object}   response Express Response object
-	 *
-	 * @return {[type]}          [description]
-	 */
-	function index(request, response) {
-
-		if (is.not.existy(request.session.user) || is.empty(request.session.user)) {
-			return response.redirect('/login');
-		}
-
-		return response.render('./admin/templates/main', {
-			username: request.session.user.username
-		});
-	}
-
-	/**
-	 * [initializeSetup description]
-	 *
-	 * @param  {Object}   request  Express Request object
-	 * @param  {Object}   response Express Response object
-	 *
-	 * @return {[type]}          [description]
-	 */
-	function initializeSetup(request, response) {
-		return response.render('./admin/setup', {});
-	}
 
 	/**
 	 * [processSetup description]
@@ -105,18 +73,7 @@ module.exports = (router) => {
 	 */
 	function logout(request, response) {
 		request.session.destroy();
-		return response.redirect('/admin/login');
-	}
-
-	/**
-	 * Logout!
-	 *
-	 * @param  {[type]} request  [description]
-	 * @param  {[type]} response [description]
-	 * @return {[type]}          [description]
-	 */
-	function other(request, response) {
-		return response.json({message: 'yay!'});
+		return response.json();
 	}
 
 	function check(request, response) {
@@ -136,11 +93,9 @@ module.exports = (router) => {
 			});
 	}
 
-	router.get(ADMIN_URI, adminRouteHelper.verifyAccessToken, index);
 	router.post(`${ADMIN_URI}`, authenticate);
 	router.post(`${ADMIN_URI}/check`, check);
 	router.get(`${ADMIN_URI}/logout`, logout);
-	router.get(`${ADMIN_URI}/other`, adminRouteHelper.verifyAccessToken, other);
 	router.post(`${ADMIN_URI}/setup`, processSetup);
 
 	return router;

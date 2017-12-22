@@ -1,9 +1,9 @@
+'use strict';
 
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const is = require('is_js');
 const knex = require('knex');
-const moment = require('moment');
 const helper = require('./helpers/admin-helper');
 
 // cache the database connector
