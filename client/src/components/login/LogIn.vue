@@ -13,20 +13,22 @@
 				<label for="submit">Sumbit: </label>
 				<input name="submit" type="button" value="submit" v-on:click="submit" />
 			</fieldset>
+			<fieldset v-if="errorMessages">
+				<span>{{errorMessages}}</span>
+			</fieldset>
 		</form>
 	</div>
 </template>
 
 <script>
 
-// import store from '../../store';
-
 export default {
 	name: 'login',
 	data() {
 		return {
 			username: '',
-			password: ''
+			password: '',
+			errorMessages: ''
 		};
 	},
 	methods: {
@@ -35,10 +37,13 @@ export default {
 				username: this.username,
 				password: this.password
 			};
-
-			this.$store.dispatch('login', body)
+			this.$store.dispatch('authentication/login', body)
 				.then(() => {
 					this.$router.push('/protected');
+				})
+				.catch(err => {
+					console.error(err.message);
+					this.errorMessages = err.response.data.error.message;
 				});
 		}
 	}

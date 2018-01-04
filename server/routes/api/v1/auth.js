@@ -46,7 +46,6 @@ module.exports = (router) => {
 		};
 		return Admin.authenticate(raw)
 			.then(res => {
-				console.log(res);
 				if (res.match) {
 					request.session.user = res;
 					return response.json(res);
