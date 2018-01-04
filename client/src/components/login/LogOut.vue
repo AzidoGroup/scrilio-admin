@@ -10,7 +10,7 @@ import router from '../../router';
 export default {
 	name: 'logout',
 	mounted: function () {
-		this.$store.dispatch('logout');
+		this.$store.dispatch('authentication/logout');
 		this.$router.push('/log-in');
 	}
 };
