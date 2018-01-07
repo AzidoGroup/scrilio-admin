@@ -3,7 +3,7 @@
 		<router-link to="/main" >Home</router-link>
 		<router-link v-if="!auth()" to="/log-in" >Login</router-link>
 		<router-link v-if="auth()" to="/log-out" >Log Out</router-link>
-
+		<router-link v-if="auth()" to="/sites" >Sites</router-link>
 		<router-link v-if="auth()" to="/protected" >Protected</router-link>
 
 		<router-view></router-view>

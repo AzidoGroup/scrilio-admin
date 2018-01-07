@@ -1,0 +1,19 @@
+{
+    "admin": {
+        "protocol": "http",
+        "host": "localhost",
+        "port": 8090,
+        "auth" : {
+
+        }
+    },
+    "api": {
+        "protocol": "http",
+        "host": "localhost",
+        "port": 8091,
+        "auth": {
+            "username": "foo",
+            "password": "bar"
+        }
+    }
+}

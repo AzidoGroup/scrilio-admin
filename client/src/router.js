@@ -4,6 +4,7 @@ import LogIn from './components/login/LogIn.vue';
 import LogOut from './components/login/LogOut.vue';
 import Main from './components/main/Main.vue';
 import Setup from './components/setup/Setup.vue';
+import SiteList from './components/sites/SiteList.vue';
 import Protected from './Protected.vue';
 
 import Store from './store/index.js';
@@ -27,6 +28,11 @@ const routes = [
 	{
 		path: '/',
 		redirect: '/main'
+	},
+	{
+		path: '/sites',
+		name: 'sites',
+		component: SiteList
 	},
 	{
 		path: '/main',

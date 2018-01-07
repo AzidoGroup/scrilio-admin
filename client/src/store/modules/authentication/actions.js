@@ -7,14 +7,17 @@ Vue.use(VueLocalStorage, {namespace: 'scrl_admin_'});
 
 const TOKEN_NAME = 'token_key';
 
-const http = axios.create({
-	baseUrl: 'http://localhost:8090'
-});
+import { admin } from '../../../lib/http.js';
+
+// // @TODO make this part of the Vue instance
+// const http = axios.create({
+// 	baseURL: 'http://localhost:8090'
+// });
 
 export default {
 	login({commit}, credentials) {
 		// @TODO move this into a service like thing
-		return http.post('/api/v1/auth', credentials)
+		return admin.post('/api/v1/auth', credentials)
 			.then(response => {
 				let body = response.data;
 				if (body.match === true) {
@@ -32,13 +35,12 @@ export default {
 			return false;
 		}
 		// @TODO move this into a service like thing
-		return http.post('/api/v1/auth/check', {token})
+		return admin.post('/api/v1/auth/check', {token})
 			.then(response => {
 				let body = response.data;
 				if (body.match === true) {
 					return true;
 				}
-				console.log('asdfadsf');
 				commit(MUTATION_TYPES.LOGOUT_USER);
 				return false;
 			})
@@ -47,7 +49,7 @@ export default {
 			});
 	},
 	logout({commit}) {
-		return http.get('/api/v1/auth/logout')
+		return admin.get('/api/v1/auth/logout')
 			.then(() => {
 				Vue.ls.remove(TOKEN_NAME);
 				commit(MUTATION_TYPES.LOGOUT_USER);
