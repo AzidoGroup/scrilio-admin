@@ -7,7 +7,7 @@ Vue.use(VueLocalStorage, {namespace: 'scrl_admin_'});
 
 const TOKEN_NAME = 'token_key';
 
-import { admin } from '../../../lib/http.js';
+import { admin } from '../../../lib/http-clients.js';
 
 // // @TODO make this part of the Vue instance
 // const http = axios.create({

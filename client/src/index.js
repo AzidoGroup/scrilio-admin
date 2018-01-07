@@ -10,7 +10,7 @@ import App from './App.vue';
 import router from './router.js';
 import Store from './store/index.js';
 
-import {api, admin} from './lib/http.js';
+import {api, admin} from './lib/http-clients.js';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);

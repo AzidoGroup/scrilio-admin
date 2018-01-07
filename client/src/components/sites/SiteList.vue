@@ -1,5 +1,5 @@
 <template>
-	<div id="SiteList">
+	<div id="sitelist">
 		<h1>SiteList - {{count}}</h1>
 		<li v-for="site in sites">
 			{{site.id}} - {{site.name}}
@@ -29,4 +29,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#sitelist {
+	border: 1px solid blue;
+	margin: 5px;
+	padding: 5px;
+}
 </style>
