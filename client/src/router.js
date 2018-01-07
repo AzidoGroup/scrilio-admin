@@ -53,7 +53,6 @@ router.beforeEach(function (to, from, next) {
 	});
 
 	if (auth) {
-		console.log(Store.store.getters['authentication/token']);
 		return Store.store.dispatch('authentication/checkStatus', Store.store.getters['authentication/token'])
 			.then(res => {
 				if (res) {
