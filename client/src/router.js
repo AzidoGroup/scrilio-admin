@@ -1,3 +1,4 @@
+/* global document */
 
 import VueRouter from 'vue-router';
 import LogIn from './components/login/LogIn.vue';
@@ -33,13 +34,19 @@ const routes = [
 	{
 		path: '/sites',
 		name: 'sites',
-		component: SiteList
+		component: SiteList,
+		meta: {
+			title: 'Sites: List'
+		}
 	},
 	{
 		path: '/sites/:id',
 		name: 'sites-item-edit',
 		props: true,
-		component: SiteItemEdit
+		component: SiteItemEdit,
+		meta: {
+			title: 'Sites: Edit - '
+		}
 	},
 	{
 		path: '/main',
@@ -61,6 +68,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach(function (to, from, next) {
+	document.title = to.meta.title || 'Scrilio Admin';
 	let auth = to.matched.some(record => {
 		return record.meta.auth;
 	});

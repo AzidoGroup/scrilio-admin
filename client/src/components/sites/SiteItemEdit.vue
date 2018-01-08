@@ -15,10 +15,12 @@ export default {
 		}
 	},
 	created() {
-
+		document.title = 'Site: Edit - ';
 		this.$api.get('/api/v1/sites/' +  this.id)
 			.then(response => {
 				this.site = response.data;
+				// set the title of the page
+				document.title += this.site.name;
 			});
 	}
 };
