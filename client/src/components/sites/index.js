@@ -13,7 +13,7 @@ const routes = {
 		component: SiteList,
 		meta: {
 			auth: true,
-			title: 'Sites: List',
+			title: 'Sites: List'
 		}
 	},
 	SiteItemEdit: {
