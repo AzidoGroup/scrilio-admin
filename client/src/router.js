@@ -1,65 +1,31 @@
 /* global document */
 
 import VueRouter from 'vue-router';
-import LogIn from './components/login/LogIn.vue';
-import LogOut from './components/login/LogOut.vue';
+import Login from './components/login';
 import Main from './components/main/Main.vue';
 import Setup from './components/setup/Setup.vue';
-import SiteList from './components/sites/SiteList.vue';
-import SiteItemEdit from './components/sites/SiteItemEdit.vue';
-import Protected from './Protected.vue';
+import Sites from './components/sites';
 
 import Store from './store/index.js';
 
 const routes = [
 	{
-		path: '/setup',
-		name: 'setup',
-		component: Setup
-	},
-	{
-		path: '/log-in',
-		name: 'logIn',
-		component: LogIn
-	},
-	{
-		path: '/log-out',
-		name: 'logOut',
-		component: LogOut
-	},
-	{
 		path: '/',
 		redirect: '/main'
-	},
-	{
-		path: '/sites',
-		name: 'sites',
-		component: SiteList,
-		meta: {
-			title: 'Sites: List'
-		}
-	},
-	{
-		path: '/sites/:id',
-		name: 'sites-item-edit',
-		props: true,
-		component: SiteItemEdit,
-		meta: {
-			title: 'Sites: Edit - '
-		}
 	},
 	{
 		path: '/main',
 		name: 'main',
 		component: Main
 	},
+	Sites.routes.SiteList,
+	Sites.routes.SiteItemEdit,
+	Login.routes.LogIn,
+	Login.routes.LogOut,
 	{
-		path: '/protected',
-		name: 'protected',
-		component: Protected,
-		meta: {
-			auth: true
-		}
+		path: '/setup',
+		name: 'setup',
+		component: Setup
 	}
 ];
 
