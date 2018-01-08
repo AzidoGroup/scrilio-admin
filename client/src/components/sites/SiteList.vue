@@ -2,9 +2,8 @@
 	<div id="sitelist">
 		<h1>SiteList - {{count}}</h1>
 		<li v-for="site in sites">
-			{{site.id}} - {{site.name}}
+			{{site.id}} - {{site.name}} <router-link :to="`/sites/${site.id}`" >Edit</router-link>
 		</li>
-
 	</div>
 </template>
 
