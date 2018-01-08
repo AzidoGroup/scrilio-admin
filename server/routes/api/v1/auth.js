@@ -8,29 +8,6 @@ const ADMIN_URI = '/api/v1/auth';
 module.exports = (router) => {
 
 	/**
-	 * [processSetup description]
-	 *
-	 * @param  {Object}   request  Express Request object
-	 * @param  {Object}   response Express Response object
-	 *
-	 * @return {void}
-	 */
-	function processSetup(request, response) {
-		let raw = {
-			username: request.body.username,
-			password: request.body.password
-		};
-
-		return Admin.insertAdminUser(raw)
-			.then(res => {
-				return response.json(res);
-			})
-			.catch(err => {
-				return response.status(500).json({error: err.message});
-			});
-	}
-
-	/**
 	 * authenticates the admin user
 	 *
 	 * @param  {Object}   request  Express Request object
@@ -95,7 +72,6 @@ module.exports = (router) => {
 	router.post(`${ADMIN_URI}`, authenticate);
 	router.post(`${ADMIN_URI}/check`, check);
 	router.get(`${ADMIN_URI}/logout`, logout);
-	router.post(`${ADMIN_URI}/setup`, processSetup);
 
 	return router;
 };

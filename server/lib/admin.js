@@ -132,6 +132,19 @@ class Admin {
 				throw err;
 			});
 	}
+
+	setupInitialized() {
+		return conn(table).where({})
+			.then(records => {
+				if (is.existy(records) && is.not.empty(records)) {
+					return true;
+				}
+				return false;
+			})
+			.catch(err => {
+				throw err;
+			});
+	}
 }
 
 module.exports = Admin;

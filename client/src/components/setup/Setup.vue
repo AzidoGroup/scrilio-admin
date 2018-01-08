@@ -1,7 +1,7 @@
 <template>
 	<div id="setup">
 		<h1>Setup</h1>
-		<form method="POST" action="/setup">
+		<form v-on:submit.prevent v-if="!initialized">
 			<fieldset>
 				<label for="username" >Admin Username: </label>
 				<input name="username" type="text" v-model="username" placeholder="username" />
@@ -16,12 +16,15 @@
 			</fieldset>
 			<fieldset>
 				<label for="submit">Sumbit: </label>
-				<input name="submit" type="button" value="submit" v-on:click="submit" />
+				<input name="submit" type="submit" value="submit" v-on:click="submit" />
 			</fieldset>
 			<div v-if="errorMessages">
 				{{errorMessages}}
 			</div>
 		</form>
+		<div v-if="initialized">
+			<span>Setup has already been initialized. @TODO - change this into a 404 page</span>
+		</div>
 	</div>
 </template>
 
@@ -33,11 +36,26 @@ export default {
 	name: 'setup',
 	data() {
 		return {
+			initialized: true,
 			username: '',
 			password: '',
 			confirmPassword: '',
 			errorMessages: ''
 		}
+	},
+	created() {
+		this.$admin.get('/api/v1/setup')
+			.then(response => {
+				this.initialized = response.data;
+				if (this.initialized) {
+					// redirects the user to the `log-in` route
+					this.$router.push('/log-in');
+				}
+			})
+			.catch(err => {
+				console.error(err.messsage);
+				this.errorMessages = err.message;
+			});
 	},
 	methods: {
 		submit(event) {
@@ -49,9 +67,15 @@ export default {
 				username: this.username,
 				password: this.password
 			}
-			this.$http.post('http://localhost:8090/api/v1/auth/setup', body)
+			this.$admin.post('/api/v1/setup', body)
 				.then(response => {
-					console.log(response);
+					this.$store.dispatch('authentication/login', body)
+					// redirects the user to the `main` route
+					this.$router.push('/main');
+				})
+				.catch(err => {
+					console.error(err.messsage);
+					this.errorMessages = err.message;
 				});
 		},
 		validatePassword(pw1, pw2) {

@@ -1,6 +1,6 @@
 <template>
 	<div id="login">
-		<form method="POST" action="/login">
+		<form v-on:submit.prevent>
 			<fieldset>
 				<label for="username" >Username: </label>
 				<input name="username" type="text" v-model="username" placeholder="username" />
@@ -11,7 +11,7 @@
 			</fieldset>
 			<fieldset>
 				<label for="submit">Sumbit: </label>
-				<input name="submit" type="button" value="submit" v-on:click="submit" />
+				<input name="submit" type="submit" value="submit" v-on:click="submit" />
 			</fieldset>
 			<fieldset v-if="errorMessages">
 				<span>{{errorMessages}}</span>
@@ -39,7 +39,7 @@ export default {
 			};
 			this.$store.dispatch('authentication/login', body)
 				.then(() => {
-					this.$router.push('/protected');
+					this.$router.push('/main');
 				})
 				.catch(err => {
 					console.error(err.message);
