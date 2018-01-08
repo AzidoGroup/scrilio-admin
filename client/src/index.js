@@ -17,6 +17,7 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(Store);
 
+// add the http clients to the Vue prototype so they can be accessed from the components
 Vue.prototype.$api = api;
 Vue.prototype.$admin = admin;
 
