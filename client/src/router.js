@@ -5,6 +5,7 @@ import Login from './components/login';
 import Main from './components/main/Main.vue';
 import Setup from './components/setup/Setup.vue';
 import Sites from './components/sites';
+import System from './components/system';
 
 import Store from './store/index.js';
 
@@ -22,6 +23,7 @@ const routes = [
 	Sites.routes.SiteItemEdit,
 	Login.routes.LogIn,
 	Login.routes.LogOut,
+	System.routes.SystemUsersList,
 	{
 		path: '/setup',
 		name: 'setup',

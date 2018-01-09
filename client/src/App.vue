@@ -26,11 +26,11 @@
 			<h3>Members</h3>
 			<ul>
 				<li>Members</li>
-			</ul>
-			<h3>Settings</h3>
-			<ul>
-				<li>Setup</li>
 				<li>Affiliates</li>
+			</ul>
+			<h3>System</h3>
+			<ul>
+				<li><router-link v-if="auth()" to="/system/users"> System Users</router-link></li>
 			</ul>
 		</div>
 	</div>

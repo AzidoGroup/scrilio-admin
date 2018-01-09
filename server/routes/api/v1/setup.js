@@ -28,7 +28,7 @@ module.exports = (router) => {
 					return response.status(500).json({error: 'setup already initialized'});
 				}
 				return Admin.insertAdminUser(raw)
-					.then(res => {
+					.then(() => {
 						return Admin.authenticate(raw)
 							.then(res => {
 								return response.json(res);

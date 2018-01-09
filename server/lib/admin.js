@@ -27,12 +27,45 @@ class Admin {
 	 * @return {[type]}        [description]
 	 */
 	constructor(config) {
+		this.DEFAULTS = helper.DEFAULTS;
 		if (is.not.existy(conn) || is.empty(conn)) {
 			table = `${config.prefix}admin_users`;
 			conn = knex(config);
 		}
 
 		return this;
+	}
+
+	/**
+	 * fetches an admin user by their id
+	 *
+	 * @param  {number} id admin id
+	 *
+	 * @return {Promise<Object>} An admin user object
+	 */
+	byId(id) {
+		return conn(table).where({id}).limit(1)
+			.then(records => {
+				if (is.not.existy(records) || is.empty(records)) {
+					return [];
+				}
+				return records[0];
+			})
+			.catch(err => {
+				throw err;
+			});
+	}
+
+	fetch(query, limit = this.DEFAULTS.LIMIT, offset = this.DEFAULTS.OFFSET, orderBy = this.DEFAULTS.ORDER_BY) {
+		if (is.not.existy(query) || is.not.object(query)) {
+			query = {};
+		}
+		return conn(table).where(query).limit(limit).offset(offset)
+			.modify(query => {
+				orderBy.forEach(odr => {
+					query.orderBy(odr.field, odr.order);
+				});
+			});
 	}
 
 	/**
@@ -83,7 +116,7 @@ class Admin {
 		let match = false;
 		let token;
 		let user;
-		return conn(table).select('id', 'username', 'password') .where({username: raw.username}).limit(1)
+		return conn(table).select('id', 'username', 'password').where({username: raw.username}).limit(1)
 			.then(record => {
 				if (is.not.existy(record) || is.empty(record)) {
 					throw new Error('no user found');

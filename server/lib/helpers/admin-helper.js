@@ -4,6 +4,17 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
+const DEFAULTS = {
+	LIMIT: 20,
+	OFFSET: 0,
+	ORDER_BY: [
+		{
+			field: 'username',
+			order: 'asc'
+		}
+	]
+};
+
 /**
  * [comparePassword description]
  *
@@ -43,6 +54,7 @@ function validateAdminUser(raw) {
 }
 
 module.exports = {
+	DEFAULTS,
 	comparePassword,
 	validateAdminUser
 };
