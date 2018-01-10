@@ -20,8 +20,10 @@ export default {
 	created() {
 		this.$api.get('/api/v1/sites')
 			.then(response => {
-				this.count = response.data.length;
-				this.sites = response.data;
+				if (response.data.length > 0) {
+					this.count = response.data.length;
+					this.sites = response.data;
+				}
 			});
 	}
 };
